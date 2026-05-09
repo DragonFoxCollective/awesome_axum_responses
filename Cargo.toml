@@ -2,6 +2,9 @@
 name = "awesome_axum_responses"
 version = "0.1.0"
 edition = "2024"
+description = "A collection of axum response wrappers"
+repository = "https://github.com/DragonFoxCollective/awesome_axum_responses"
+license = "MIT OR Apache-2.0"
 
 [dependencies]
 anyhow = { version = "1.0.102", optional = true }
