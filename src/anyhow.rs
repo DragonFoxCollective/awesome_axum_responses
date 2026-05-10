@@ -26,3 +26,9 @@ impl IntoResponse for Error {
         (StatusCode::INTERNAL_SERVER_ERROR, self.0.to_string()).into_response()
     }
 }
+
+impl From<Error> for Box<dyn std::error::Error + Send + Sync> {
+    fn from(value: Error) -> Self {
+        value.0.into_boxed_dyn_error()
+    }
+}
