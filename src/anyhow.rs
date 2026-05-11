@@ -1,14 +1,15 @@
+use std::fmt::Display;
+
 use axum::{
     http::StatusCode,
     response::{IntoResponse, Response},
 };
-use derive_more::Display;
 
 pub use anyhow::anyhow;
 
 pub type Result<T, Err = Error> = std::result::Result<T, Err>;
 
-#[derive(Debug, Display)]
+#[derive(Debug)]
 pub struct Error(anyhow::Error);
 
 impl Error {
@@ -36,5 +37,11 @@ impl IntoResponse for Error {
 impl From<Error> for Box<dyn std::error::Error + Send + Sync> {
     fn from(value: Error) -> Self {
         value.into_boxed_dyn_error()
+    }
+}
+
+impl Display for Error {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.0)
     }
 }

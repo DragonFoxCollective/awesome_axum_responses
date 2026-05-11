@@ -10,10 +10,9 @@ license = "MIT OR Apache-2.0"
 anyhow = { version = "1.0.102", optional = true }
 askama = { version = "0.16.0", optional = true }
 axum = "0.8.9"
-derive_more = { version = "2.1.1", optional = true }
 tracing = { version = "0.1.44", optional = true }
 
 [features]
 default = ["anyhow", "askama"]
-anyhow = ["dep:anyhow", "dep:derive_more", "dep:tracing", "derive_more/display"]
+anyhow = ["dep:anyhow", "dep:tracing"]
 askama = ["anyhow", "dep:askama"]
