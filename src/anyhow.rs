@@ -1,4 +1,4 @@
-use std::fmt::Display;
+use std::fmt::{Debug, Display};
 
 use axum::{
     http::StatusCode,
@@ -9,7 +9,6 @@ pub use anyhow::anyhow;
 
 pub type Result<T, Err = Error> = std::result::Result<T, Err>;
 
-#[derive(Debug)]
 pub struct Error(anyhow::Error);
 
 impl Error {
@@ -43,5 +42,11 @@ impl From<Error> for Box<dyn std::error::Error + Send + Sync> {
 impl Display for Error {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.0)
+    }
+}
+
+impl Debug for Error {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{:?}", self.0)
     }
 }
