@@ -11,6 +11,12 @@ pub type Result<T, Err = Error> = std::result::Result<T, Err>;
 #[derive(Debug, Display)]
 pub struct Error(anyhow::Error);
 
+impl Error {
+    pub fn into_boxed_dyn_error(self) -> Box<dyn std::error::Error + Send + Sync> {
+        self.0.into_boxed_dyn_error()
+    }
+}
+
 impl<T> From<T> for Error
 where
     T: Into<anyhow::Error>,
@@ -29,6 +35,6 @@ impl IntoResponse for Error {
 
 impl From<Error> for Box<dyn std::error::Error + Send + Sync> {
     fn from(value: Error) -> Self {
-        value.0.into_boxed_dyn_error()
+        value.into_boxed_dyn_error()
     }
 }
