@@ -13,6 +13,6 @@ axum = "0.8.9"
 tracing = { version = "0.1.44", optional = true }
 
 [features]
-default = ["anyhow", "askama"]
+default = []
 anyhow = ["dep:anyhow", "dep:tracing"]
 askama = ["anyhow", "dep:askama"]
